@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const userRoutes = require("./api/routes/user");
 const batteryRoutes = require("./api/routes/battery");
 
-// mongoose.connect(
-//   "mongodb+srv://dbAdmin123:" +
-//     process.env.MONGO_ATLAS_PW +
-//     "@nodejs-api-db.8gnrw.mongodb.net/nodejs-api-db?retryWrites=true&w=majority"
-// );
+mongoose.connect(
+  "mongodb+srv://dbAdmin123:" +
+    process.env.MONGO_ATLAS_PW +
+    "@nodejs-api-db.8gnrw.mongodb.net/nodejs-api-db?retryWrites=true&w=majority"
+);
 
 app.use('/uploads', express.static('uploads'));
 app.use(morgan("dev")); // to add status in console
