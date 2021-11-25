@@ -7,10 +7,12 @@ const jwt = require("jsonwebtoken");
 
 const userController = require('../controllers/user')
 
-const User = require('../models/user');
 
 router.post("/signup", userController.userSignUp);
 
 router.post("/signin", userController.userSignIn);
+
+router.post("/profile/change-name", userController.userChangeName);
+
 
 module.exports = router;
