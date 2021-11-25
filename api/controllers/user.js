@@ -27,9 +27,9 @@ exports.userSignUp = (req, res, next) => {
               email: req.body.email,
               password: hash,
               localId: myLocalId,
-              idToken: 'null',
+              idToken: "null",
               displayName: "Please edit name in Settings!",
-              profileImage: 'null'
+              profileImage: "null",
             });
             user
               .save()
@@ -49,4 +49,45 @@ exports.userSignUp = (req, res, next) => {
         });
       }
     });
+};
+
+exports.userSignIn = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email }).exec();
+  try {
+    if (!user) {
+      return res.status(401).json({
+        message: "Auth failed",
+      });
+    }
+    // console.log(user);
+    bcrypt.compare(req.body.password, user.password, async (err, result) => {
+      if (err) {
+        return res.status(401).json({
+          message: "Auth failed",
+        });
+      }
+      if (result) {
+        const token = jwt.sign(
+          {
+            email: user.email,
+            userId: user._id,
+          },
+          process.env.JWT_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        user.idToken = token;
+        await user.save();
+      }
+    });
+    return res.status(200).json({
+      message: "Found email!",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).json({
+      message: "Auth failed",
+    });
+  }
 };
