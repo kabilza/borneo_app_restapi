@@ -12,7 +12,13 @@ const userSchema = mongoose.Schema({
     localId: { type: String, required: true },
     idToken: { type: String, required: false },
     displayName: { type: String, required: false },
-    profileImage: { type: String, required: true }
+    profileImage: { type: String, required: false },
+    briefInfo: { type: String, required: false },
+    phoneNumber: { type: String, required: false },
+    facebook: { type: String, required: false },
+    twitter: { type: String, required: false },
+    homeAddress: { type: String, required: false },
+    age: { type: String, required: false }
 });
 
 module.exports = mongoose.model('User', userSchema);

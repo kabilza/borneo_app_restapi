@@ -28,8 +28,14 @@ exports.userSignUp = (req, res, next) => {
               password: hash,
               localId: myLocalId,
               idToken: "null",
-              displayName: "Please edit name in Settings!",
+              displayName: "user",
               profileImage: "null",
+              briefInfo: "null",
+              phoneNumber: "null",
+              facebook: "null",
+              twitter: "null",
+              homeAddress: "null",
+              age: "null"
             });
             user
               .save()
