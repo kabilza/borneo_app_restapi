@@ -54,4 +54,12 @@ exports.fetchBattery = async (req, res, next) => {
   }
 };
 
-exports.removeBattery = (req, res, next) => {};
+exports.removeBattery = async (req, res, next) => {
+    let myUserId = req.query.userId;
+    let myBatteryId = req.query.batteryId;
+    const deletedBattery = await Battery.deleteOne({ _id: myBatteryId });
+    console.log(deletedBattery);
+    return res.status(200).json({
+        message: "Battery Deleted!"
+    });
+};

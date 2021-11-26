@@ -33,9 +33,21 @@ exports.userSignUp = (req, res, next) => {
             });
             user
               .save()
-              .then((result) => {
+              .then(async (result) => {
+                const token = jwt.sign(
+                  {
+                    email: user.email,
+                    userId: user._id,
+                  },
+                  process.env.JWT_KEY,
+                  {
+                    expiresIn: "1h",
+                  }
+                );
+                user.idToken = token;
+                await user.save();
                 console.log(result);
-                res.status(201).json(user);
+                return res.status(201).json(user);
               })
               .catch((err) => {
                 console.log(err);
@@ -88,5 +100,20 @@ exports.userSignIn = async (req, res, next) => {
   }
 };
 
-exports.userChangeName = async (req, res, next) => {}
-
+exports.userChangeProfile = async (req, res, next) => {
+  const { displayName, userId } = req.body;
+  const user = await User.findOne({ localId: userId }).exec();
+  try {
+    console.log("user " + user);
+    user.displayName = displayName;
+    await user.save();
+    return res.status(201).json({
+      message: "Profile Updated",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).json({
+      message: "Auth failed",
+    });
+  }
+};

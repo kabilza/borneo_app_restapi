@@ -3,14 +3,14 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const checkAuth = require('../api/middleware/check-auth');
+const checkAuth = require('../middleware/check-auth');
 
 const BatteryController = require('../controllers/battery');
 
 router.get("/fetchBattery", BatteryController.fetchBattery);
 
-router.post("/addNewBattery", BatteryController.registerNewBattery);
+router.post("/addNewBattery", checkAuth, BatteryController.registerNewBattery);
 
-router.delete("/removeBattery", BatteryController.removeBattery);
+router.delete("/removeBattery", checkAuth, BatteryController.removeBattery);
 
 module.exports = router;
