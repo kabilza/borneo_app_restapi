@@ -107,11 +107,18 @@ exports.userSignIn = async (req, res, next) => {
 };
 
 exports.userChangeProfile = async (req, res, next) => {
-  const { displayName, userId } = req.body;
+  const { newProfile, userId } = req.body;
   const user = await User.findOne({ localId: userId }).exec();
   try {
     console.log("user " + user);
-    user.displayName = displayName;
+    console.log("new Profile " + newProfile);
+    user.displayName = newProfile.userDisplayName;
+    user.briefInfo = newProfile.userBriefInfo;
+    user.phoneNumber = newProfile.userPhoneNumber;
+    user.facebook = newProfile.userFacebook;
+    user.twitter = newProfile.userTwitter;
+    user.homeAddress = newProfile.userHomeAddress;
+    user.age = newProfile.userAge;
     await user.save();
     return res.status(201).json({
       message: "Profile Updated",
