@@ -14,5 +14,7 @@ router.post("/signin", userController.userSignIn);
 
 router.post("/profile/changeProfile", checkAuth, userController.userChangeProfile);
 
+router.post("/profile/changeProfilePicture", checkAuth, userController.userChangeProfilePicture);
+
 
 module.exports = router;

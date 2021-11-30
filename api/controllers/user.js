@@ -130,3 +130,31 @@ exports.userChangeProfile = async (req, res, next) => {
     });
   }
 };
+
+exports.userChangeProfilePicture = async (req, res, next) => {
+  // profileImage:
+  // console.log(userId);
+  // console.log('userId')
+  console.log(req);
+  // const user = await User.findOne({ localId: userId }).exec();
+  // try {
+  //   console.log("user " + user);
+  //   console.log("new Profile " + newProfile);
+  //   user.displayName = newProfile.userDisplayName;
+  //   user.briefInfo = newProfile.userBriefInfo;
+  //   user.phoneNumber = newProfile.userPhoneNumber;
+  //   user.facebook = newProfile.userFacebook;
+  //   user.twitter = newProfile.userTwitter;
+  //   user.homeAddress = newProfile.userHomeAddress;
+  //   user.age = newProfile.userAge;
+  //   await user.save();
+  //   return res.status(201).json({
+  //     message: "Profile Updated",
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(401).json({
+  //     message: "Auth failed",
+  //   });
+  // }
+};
